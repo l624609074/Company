@@ -1,0 +1,9 @@
+[ 2015-06-18T16:25:26+08:00 ] 58.62.197.168 /admin99/Order/Modify/orderid/106/ordernum/ed84cba14b6d/System/Ejiao
+ERR: SQLSTATE[23000]: Integrity constraint violation: 1052 Column 'ordernum' in where clause is ambiguous
+
+[ 2015-06-18T17:56:50+08:00 ] 58.62.197.168 /admin99/Order/Modify/orderid/106/ordernum/ed84cba14b6d/System/Ejiao
+ERR: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tp_ordertime' in 'field list'
+
+[ 2015-06-18T21:17:08+08:00 ] 58.62.197.168 /admin99/Order/Modify/orderid/106/ordernum/ed84cba14b6d/System/Ejiao
+ERR: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'tp_status' in 'field list'
+
