@@ -14,7 +14,7 @@ Class UserController extends CommonLoginController {        //继承基本的use
 			
 			
 		$count = $order->join(array("LEFT JOIN __CONTACT__ ON __CONTACT__.ordernum=__ORDER__.ordernum","LEFT JOIN __PRODUCTS__ ON __PRODUCTS__.id =__ORDER__.productid"))->count();
-		 $p = getpage($count,8);
+		 $p = getpage($count,4);
 		$data = $order->field($needField)->join(array("LEFT JOIN __CONTACT__ ON __CONTACT__.ordernum=__ORDER__.ordernum","LEFT JOIN __PRODUCTS__ ON __PRODUCTS__.id=__ORDER__.productid"))->order('ordertime')->limit($p->firstRow, $p->listRows)->select();	
 			
 	

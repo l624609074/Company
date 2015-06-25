@@ -17,7 +17,7 @@
 				 
 				//验证通过了。现在插入数据
 				
-				$products=I("post.product");
+				$productsInfo=I("post.product");
 			
 				
 				$randNum=rand(0,9999999999999);         //生成  订单号的操作
@@ -54,7 +54,7 @@
 				
 		
 				
-						foreach($products as $key => $v){
+						foreach($productsInfo as $key => $v){
 						
 								$num=$v["num_two"];         //订购的数量
 								

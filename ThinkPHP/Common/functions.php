@@ -1664,7 +1664,7 @@ function ExportExcel($orderData){
 			$title=$system."--用户购买信息{$date}";
 
 			$objActSheet = $objExcel->getActiveSheet();
-			$wordArray=array("A","B","C","D","E","F","G","H","I","J","K","L","M");
+			$wordArray=array("A","B","C","D","E","F","G","H","I","J","K","L","M","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","Z","U","V","X","Y","Z","AA","AB","AC","AD");
 		
 		//3. 表格的属性设置	
 					
@@ -1684,50 +1684,52 @@ function ExportExcel($orderData){
 					for($i=0;$i<$cellNamesLength;$i++){
 						
 							$objActSheet->getStyle("{$wordArray[$i]}")->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);  
-							$objActSheet->getColumnDimension("{$wordArray[$i+1]}")->setWidth(60);  //设置每一列 的宽度
 						
-				
+								
+									$objActSheet->getColumnDimension("{$wordArray[$i+1]}")->setWidth(40);  //设置每一列 的宽度
+							
+
 						
 					}
-				
-			
-						
-						
-						
+					
 						
 		//4. 表格内容的属性设置
 		
 					//4.1 设置列头
 					$objActSheet->setCellValue('A1', "{$title}");
-					for($i=2;$i<=$cellNamesLength;$i++){
-							  $objActSheet->setCellValue("{$wordArray[$i-2]}2", $cellNames[$i-2]);           //从A2 ，即 第二列开始 设置值，第一列为 合并的列头
+					for($i=0;$i<=$cellNamesLength;$i++){
+							  $objActSheet->setCellValue("{$wordArray[$i]}2", $cellNames[$i]);           //从A2 ，即 第二列开始 设置值，第一列为 合并的列头
 						
 					}
 					
 				
-		
-		//5.表格内容的赋予
+		//5.表格内容的赋予 
 				//5.1	
-				
-				$orderDataLength=count($orderData);           //获取总数据的条数
-				
-				 for($j=0;$j<$orderDataLength;$j++){
-					
-							for($i=0;$i<$cellNamesLength;$i++){                        //每一行的赋值情况是               A ..           ~        G ..
-									  $cellNameStart=$i+3;
-									 var_dump($orderData[$i][$i]);
-									  $objActSheet->setCellValue("{$wordArray[$i]}{$cellNameStart}", $orderData[$i]);              //从  A3 开始设置数据库调出来的用户信息的值
+				//var_dump($orderData);
+				$keyArr=array("name","address","phone","productname","client");      //需要获取的键值		
+				$keyArrLength=count($keyArr);           //获取总数据的条数
 		
-							
-							
-							}
+			
 					
+						foreach($orderData as $key=> $v){
+						
+							 //从  A3 开始设置数据库调出来的用户信息的值
+									
+								$objActSheet->setCellValue("{$wordArray[0]}".($key+3)."", $v["name"]);             
+								$objActSheet->setCellValue("{$wordArray[1]}".($key+3)."", $v["address"]);             
+								$objActSheet->setCellValue("{$wordArray[2]}".($key+3)."", $v["phone"]);             
+								$objActSheet->setCellValue("{$wordArray[3]}".($key+3)."", $v["productname"]);             
+								$objActSheet->setCellValue("{$wordArray[4]}".($key+3)."", $v["client"]);             
+								$orderTime=date("Y-d-m H:i:s",$v["ordertime"]);
+								$objActSheet->setCellValue("{$wordArray[5]}".($key+3)."", "备注({$orderTime},{$v["num"]}件,{$v["word"]})"); 
+								$objActSheet->setCellValue("{$wordArray[6]}".($key+3)."", $v["total"]); 
+					}	
+			
+	
+							
 					
-				}
-				 
-		exit;
-
         //输出操作
+	
 		//$objExcel->setActiveSheetIndex(0); 
         $objWriter = \PHPExcel_IOFactory::createWriter($objExcel, 'Excel2007');
 

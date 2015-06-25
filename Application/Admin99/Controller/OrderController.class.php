@@ -55,7 +55,7 @@
 										$word=I("post.word");
 										$price=I("post.price");
 										$productid=I("post.productid");
-										$num=1;
+										$num=I("post.num",1);
 										$products=M("products");
 										$operator=session("useradmin");
 										$whereProduct=array("id"=>$productid);
@@ -480,7 +480,7 @@
 						
 					$count = $order->join(array("LEFT JOIN __CONTACT__ ON __CONTACT__.ordernum=__ORDER__.ordernum","LEFT JOIN __PRODUCTS__ ON __PRODUCTS__.id =__ORDER__.productid"))->where($where)->count();
 			
-					 $p = getpage($count,8);
+					 $p = getpage($count,$count);
 					$data = $order->field($needField)->join(array("LEFT JOIN __CONTACT__ ON __CONTACT__.ordernum=__ORDER__.ordernum","LEFT JOIN __PRODUCTS__ ON __PRODUCTS__.id=__ORDER__.productid"))->where($where)->order('ordertime')->limit($p->firstRow, $p->listRows)->select();	
 						
 				 
@@ -535,9 +535,18 @@
 		/*PHPExcel 订单导出操作*/
 	function Export(){//导出Excel
        // $xlsName  =session("System");
-	   
+	    
 		$order=M("order");
-		$orderData=$order->table(array("tp_products","tp_order"))->where("tp_order.id in ('71,72,73')")->order("id asc")->select();    //用户订单的数据信息
+			//需要调出的字符串
+	//array("姓名","地址","电话","产品类别(套餐）","客户来源","备注（购买日期，购买数量，症状）","金额");     //列头名  
+						$needField=array("tp_contact.ordernum","tp_contact.name","tp_contact.phone","tp_contact.address","tp_order.word","tp_order.ordertime","tp_order.client","tp_products.productname","tp_order.total","tp_products.producttype","tp_products.price","tp_order.num");
+						
+						
+					$orderData = $order->join(array("LEFT JOIN __CONTACT__ ON __CONTACT__.ordernum=__ORDER__.ordernum","LEFT JOIN __PRODUCTS__ ON __PRODUCTS__.id =__ORDER__.productid"))->where($where)->select();
+			
+			
+			
+			
 
 		ExportExcel($orderData);
     }
