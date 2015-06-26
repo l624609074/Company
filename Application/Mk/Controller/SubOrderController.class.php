@@ -49,7 +49,7 @@
 				
 										$payment=I("post.payment");
 										$word=I("post.word");
-										$client="后台添加";
+										$client=I("post.client");
 										$price=I("post.price");
 										$productid=I("post.productid");
 										$num=1;

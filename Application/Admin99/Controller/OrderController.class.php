@@ -534,8 +534,15 @@
 		
 		/*PHPExcel 订单导出操作*/
 	function Export(){//导出Excel
-       // $xlsName  =session("System");
-	    
+       // 1.接收需要导出的  id数组
+	   
+	   $exportArr=I("get.exportArr");
+		 $ids="(0,{$exportArr})";
+		$where=array(
+			"tp_order.id"=>array("in",$ids)
+		
+		);
+	
 		$order=M("order");
 			//需要调出的字符串
 	//array("姓名","地址","电话","产品类别(套餐）","客户来源","备注（购买日期，购买数量，症状）","金额");     //列头名  
@@ -543,11 +550,8 @@
 						
 						
 					$orderData = $order->join(array("LEFT JOIN __CONTACT__ ON __CONTACT__.ordernum=__ORDER__.ordernum","LEFT JOIN __PRODUCTS__ ON __PRODUCTS__.id =__ORDER__.productid"))->where($where)->select();
-			
-			
-			
-			
-
+		//var_dump($orderData);
+	
 		ExportExcel($orderData);
     }
 		

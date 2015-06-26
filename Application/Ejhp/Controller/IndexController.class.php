@@ -22,7 +22,7 @@ class IndexController extends Controller {
 		//var_dump($isMoblie);
 		if($isMoblie->judge()){
 			//手机端
-			$this->redirect("/Appejiao/Index/Index/SEOCode/{$SEOCode}");
+			$this->redirect("/Appejhp/Index/Index/SEOCode/{$SEOCode}");
 		}  
 		
 				//2.调出新闻资讯列表
@@ -41,7 +41,7 @@ class IndexController extends Controller {
 	
 				//调出产品的数据
 		$product=M("products");
-		$data=$product->order('id asc')->select();
+		$data=$product->where("flag=1")->order('id asc')->select();
 		$this->assign("data",$data);
 		//调出问答
 		$question=M("question");

@@ -68,18 +68,31 @@
 							
 					}
 				);
-			
-			//excel导出交互，传过去 需要导出来的 orderi值
-			
-			$.ajax({
-					url:"/admin99/Order/Export",
-					data:"",
-					success:function(){
-					
-					}
 				
+					//excel导出交互，传过去 需要导出来的 orderi值
+			$("#export").on("click",function(){
+					var exportArr=[];
+					$("input[name=buyinfoid]").each(function(){
+						if($(this).attr("checked") == "checked"){
+								var val=$(this).val();
+								
+								exportArr.push(val);
+						
+						}
+						
+				
+					});
+					
+						if(exportArr!=""){
+							window.location.href="/admin99/Order/Export/System/<?php echo ($System); ?>/exportArr/"+exportArr;
+						}else{
+								alert("还未选择需要导出的内容！");
+						
+						}
+					
+					
 			
-			});
+				});
 			
 			
 			
@@ -150,6 +163,7 @@
 </div> 
 </div> 
 <div class="admin">
+
 	<form method="post">
     <div class="panel admin-panel">
     	<div class="panel-head"><strong>订单列表</strong></div>
@@ -159,7 +173,12 @@
 			 <input type="button" class="button button-small border-blue" value="批量确认" />
             <input type="button" class="button button-small border-green" value="批量发货" />
             <input type="button" class="button button-small border-yellow" value="批量删除" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <input type="button" class="button button-small border-yellow" value="添加新订单" onClick="window.location.href='/admin99/Order/Add/System/<?php echo ($System); ?>'" />
+		
+            <input type="button" class="button button-small border-yellow" value="添加新订单" onClick="window.location.href='/admin99/Order/Add/System/<?php echo ($System); ?>'" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          
+						<input type="hidden" value="" name="exportArr" id="exportArr"/>
+						  <input type="button" class="button button-small border-red" value="导出EXCEL" name="export" id="export"  />
+		
            
         </div>
 	
