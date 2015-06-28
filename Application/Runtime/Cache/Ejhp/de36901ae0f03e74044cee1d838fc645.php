@@ -10,8 +10,6 @@
 <link rel="stylesheet" href="/Public/PcEjhp/css/common.css" type="text/css">
 </head>
 <body>
-
-
 <!-- 头部 -->
 <div class="head"><a href="#test"></a></div>
 <div class="nav">
@@ -461,12 +459,13 @@
 </div>
 <!-- 第十屏 -->
 
+
  <div class="box-10">
   <div class="box-10-bj"></div>
   <a name="dg"></a>
   <div class="title"><img src="/Public/PcEjhp/images/60-1.jpg" alt="在线订购" width="950" height="90"></div>
   <div class="m-950" name="OrderForm" id="OrderForm">
-    <form method="post" action="/ejhp/SubOrder/submit" onsubmit="return dinggou()" name="form3">
+    <form method="post" action="/ejhp/SubOrder/Submit" onsubmit="return dinggou()" name="form3">
       <input type="text" name="p" class="box-10-title" readonly="true" value="套餐选择">
       <div class="box-10-1">
         <ul>
@@ -525,6 +524,7 @@
             <td align="center">联系电话</td>
             <td><input type="text" value="" name="phone" class="text">
             <input type="hidden" value="PC" name="client" class="text">
+            <input type="hidden" value="99官网正品培元阿胶" name="subject" class="text">
           </td></tr>
           <tr>
             <td align="center">收货地址</td>
@@ -556,7 +556,7 @@
       <div class="box-10-4">
         <table width="100%">
           <tr>
-            <td width="30%" align="center"><input checked="checked" type="radio" name="payment" class="payment zfb" value="支付宝"/>
+            <td width="30%" align="center"><input  type="radio" name="payment" class="payment zfb" value="支付宝"/>
               <img src="/Public/PcEjhp/images/69.jpg" alt="支付宝" width="157" height="50"></td>
             <td><input checked="checked" type="radio" name="payment" class="payment hdfk" value="货到付款"/>
               <span>货到付款</span></td>
@@ -644,7 +644,7 @@
     </div>
   </div>
 </div>
-<?php echo ($MonitorCode); ?>
+
 <div class="scrollBtn">
   <ul>
     <li><a class="goTop" title="返回顶部"><b>返回顶部</b></a></li>
@@ -662,11 +662,18 @@ var LiveAutoInvite0='您好，来自%IP%的朋友';
 var LiveAutoInvite1='来自首页的对话';
 var LiveAutoInvite2=' 网站商务通 主要功能：<br>1、主动邀请<br>2、即时沟通<br>3、查看即时访问动态<br>4、访问轨迹跟踪<br>5、内部对话<br>6、不安装任何插件也实现双向文件传输<br><br><b>如果您有任何问题请接受此邀请以开始即时沟通</b>';
 //-->
-</script>
-
-
-
+</script> 
 <script src="/Public/Js/jq.js"></script>
+<script>
+$(function(){
+		$("input[name=payment]").on("change",function(){
+				$("form[name=form3]").attr("action","/ejhp/Pay/doalipay");
+		
+		});
+
+});
+
+</script>
 <script src="/Public/PcEjhp/Js/common.js"></script>
 <script src="/Public/PcEjhp/Js/Area.js" type="text/javascript"></script>
 <script src="/Public/PcEjhp/Js/AreaData_min.js" type="text/javascript"></script>

@@ -1754,4 +1754,4 @@ function ExportExcel($orderData){
 
    /*************end***********PHPExcel导出类操作方法***********/
 
-
+include "MyFunction.php";

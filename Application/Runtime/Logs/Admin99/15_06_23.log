@@ -1,6 +1,0 @@
-[ 2015-06-23T18:10:27+08:00 ] 219.137.246.64 /admin99/Order/Export
-ERR: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'maka.0' doesn't exist
-
-[ 2015-06-23T18:10:50+08:00 ] 219.137.246.64 /admin99/Order/Export
-ERR: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'maka.0' doesn't exist
-

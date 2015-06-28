@@ -202,7 +202,7 @@ $(document).ready(function(){
 function mycheck(){
 	var isMobile = /^(?:13\d|15\d|18\d)\d{5}(\d{3}|\*{3})$/; //手机号码验证规则
 	var isPhone = /^((0\d{2,3})-)?(\d{7,8})(-(\d{3,}))?$/;   //座机验证规则
-	var tel = document.form1.contact.value;
+	var tel = document.form1.phone.value;
 	if(document.form1.name.value ==""){
 		alert("您的姓名不能为空！");
 		document.form1.name.focus();
@@ -210,12 +210,12 @@ function mycheck(){
 	}
 	if(tel ==""){
 		alert("联系电话不能为空！");
-		document.form1.contact.focus();
+		document.form1.phone.focus();
 		return false;
 	}
 	if(!isMobile.test(tel) && !isPhone.test(tel)){ //如果用户输入的值不同时满足手机号和座机号的正则
 		alert("请正确填写电话号码，例如:13415764179或020-61396139");  //就弹出提示信息
-		document.form1.contact.focus();
+		document.form1.phone.focus();
 		return false; //返回一个错误，不向下执行
 	}
 	
@@ -225,7 +225,7 @@ function mycheck(){
 function mycheck_form(){
 	var isMobile = /^(?:13\d|15\d|18\d)\d{5}(\d{3}|\*{3})$/; //手机号码验证规则
 	var isPhone = /^((0\d{2,3})-)?(\d{7,8})(-(\d{3,}))?$/;   //座机验证规则
-	var tel = document.form2.contact.value;
+	var tel = document.form2.phone.value;
 	if(document.form2.name.value ==""){
 		alert("您的姓名不能为空！");
 		document.form2.name.focus();
@@ -233,12 +233,12 @@ function mycheck_form(){
 	}
 	if(tel ==""){
 		alert("联系电话不能为空！");
-		document.form2.contact.focus();
+		document.form2.phone.focus();
 		return false;
 	}
 	if(!isMobile.test(tel) && !isPhone.test(tel)){ //如果用户输入的值不同时满足手机号和座机号的正则
 		alert("请正确填写电话号码，例如:13415764179或020-61396139");  //就弹出提示信息
-		document.form2.contact.focus();
+		document.form2.phone.focus();
 		return false; //返回一个错误，不向下执行
 	}
 
@@ -254,7 +254,7 @@ function dinggou(){
 	}
 	var isMobile = /^(?:13\d|15\d|18\d)\d{5}(\d{3}|\*{3})$/; //手机号码验证规则
 	var isPhone = /^((0\d{2,3})-)?(\d{7,8})(-(\d{3,}))?$/;   //座机验证规则
-	var tel = document.form3.contact.value;
+	var tel = document.form3.phone.value;
 	var is_class = true;
 	for(var i = 0;i < $('.box-10-1 ul li').length;i++){
 		var li_class = $('.box-10-1 ul li').eq(i).attr('class');
@@ -274,12 +274,12 @@ function dinggou(){
 	}
 	if(tel ==""){
 		alert("联系电话不能为空！");
-		document.form3.contact.focus();
+		document.form3.phone.focus();
 		return false;
 	}
 	if(!isMobile.test(tel) && !isPhone.test(tel)){ //如果用户输入的值不同时满足手机号和座机号的正则
 		alert("请正确填写电话号码，例如:13415764179或020-61396139");  //就弹出提示信息
-		document.form3.contact.focus();
+		document.form3.phone.focus();
 		return false; //返回一个错误，不向下执行
 	}
 	if(document.form3.prov.value == "" || document.form3.prov.value == "请选择"){

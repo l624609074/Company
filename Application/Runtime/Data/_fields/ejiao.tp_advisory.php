@@ -1,1 +1,0 @@
-a:9:{i:0;s:2:"id";i:1;s:4:"name";i:2;s:3:"age";i:3;s:7:"contact";i:4;s:4:"word";i:5;s:6:"recall";i:6;s:8:"lefttime";s:3:"_pk";s:2:"id";s:5:"_type";a:7:{s:2:"id";s:16:"int(10) unsigned";s:4:"name";s:11:"varchar(50)";s:3:"age";s:16:"int(10) unsigned";s:7:"contact";s:11:"varchar(20)";s:4:"word";s:4:"text";s:6:"recall";s:7:"int(10)";s:8:"lefttime";s:16:"int(50) unsigned";}}
