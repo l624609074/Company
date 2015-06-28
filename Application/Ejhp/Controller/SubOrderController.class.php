@@ -8,12 +8,12 @@
 			
 						
 				//获取 自定义的 验证规则
-				$verify=D("Verify"); 
+			/* 	$verify=D("Verify"); 
 
 				if(!$verify->create()){
 					$this->error($verify->getError());	
 			
-				}    
+				}     */
 				 
 				//验证通过了。现在插入数据
 				
