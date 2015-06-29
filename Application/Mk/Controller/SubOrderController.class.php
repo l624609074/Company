@@ -14,8 +14,6 @@
 				}  
 				
 			//验证通过了。现在插入数据
-				
-			
 					$randNum=rand(0,9999999999999);         //生成  订单号的操作
 					$time=time();
 					$str=$randNum.$time;
@@ -40,53 +38,27 @@
 					
 					$this->error("提交订单失败，请联系管理员2！");
 				}
-				
-			
-				//2,插入购买产品的信息
-				
-				
+
 				//2,插入购买产品的信息
 				
 										$payment=I("post.payment");
 										$word=I("post.word");
 										$client=I("post.client");
-										$price=I("post.price");
 										$productid=I("post.productid");
-										$num=1;
+										$num=I("post.num");		
 										$products=M("products");
 										$whereProduct=array("id"=>$productid);
 										$productPrice=$products->field("price")->where($whereProduct)->find();   
-										if($price!=$productPrice["price"]){
-											//恶意修改价格
-								
-											//插入失败，同时要删除掉  用户的联系信息
-											$where["id"]=$contactId;
-											$contact->where($where)->delete();
-											
-											$this->error("请勿恶意修改相关提交内容，谢谢合作！");
-											//删除已经插入的用户联系信息
-											
-										}
-										
-										
+										$price=$productPrice["price"];
 										$total=$price*$num;    //算出当前这件 总价
-
-										$time=NOW_TIME;
+									$time=NOW_TIME;
 										$sql="insert into tp_order (payment,productid,num,total,word,ordernum,ordertime,client) values('{$payment}','{$productid}','{$num}','{$total}','{$word}','{$ordernum}','{$time}','{$client}')";
 										$order=M("order");
-
-				
 										if(!$order->execute($sql)){
-											
-
-												//插入失败，同时要删除掉  用户的联系信息
+											//插入失败，同时要删除掉  用户的联系信息
 												$where["id"]=$contactId;
-												$contact->where($where)->delete();
-											
-												$this->error("提交订单失败，请联系管理员3！");
-										
-										
-											
+												$contact->where($where)->delete();	
+												$this->error("提交订单失败，请联系管理员3！");	
 										}
 										
 										

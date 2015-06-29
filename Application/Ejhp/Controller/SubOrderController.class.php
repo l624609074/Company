@@ -8,12 +8,12 @@
 			
 						
 				//获取 自定义的 验证规则
-			/* 	$verify=D("Verify"); 
+				$verify=D("Verify"); 
 
 				if(!$verify->create()){
 					$this->error($verify->getError());	
 			
-				}     */
+				}    
 				 
 				//验证通过了。现在插入数据
 				
@@ -68,23 +68,11 @@
 										$payment=I("post.payment");
 										$word=I("post.word");
 										$client=I("post.client");
-										$price=I("post.price{$key}");
 										$products=M("products");
 										$productid=$key;
 										$whereProduct=array("id"=>$productid);
 										$productPrice=$products->field("price")->where($whereProduct)->find();   
-										if($price!=$productPrice["price"]){
-											//恶意修改价格
-								
-											//插入失败，同时要删除掉  用户的联系信息
-											$where["id"]=$contactId;
-											$contact->where($where)->delete();
-											
-											$this->error("请勿恶意修改相关提交内容，谢谢合作！");
-											//删除已经插入的用户联系信息
-											
-										}
-										
+										$price=$productPrice["price"];
 										
 										$total=$price*$num;    //算出当前这件 总价
 										

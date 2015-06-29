@@ -4,11 +4,12 @@
  //函数功能：根据支付接口传回的数据判断该订单是否已经支付成功；
  //返回值：如果订单已经成功支付，返回true，否则返回false；
  function checkorderstatus($ordid){
-	 
+	 $system=session("system");    //支付的产品类型，选择对应的数据库
+	C('DB_NAME',$system);
     $Ord=M('orderlist');
 	$where["ordid"]=$ordid;
     $ordstatusRes=$Ord->where($where)->find();
-    if($ordstatusRes&&$ordstatusRes["ordstatus"]==1){
+    if($ordstatusRes["ordstatus"]==1){
         return true;
     }else{
         return false;    
@@ -19,6 +20,8 @@
  //处理订单函数
  //更新订单状态，写入订单支付后返回的数据
  function orderhandle($parameter){
+	 $system=session("system");    //支付的产品类型，选择对应的数据库
+	 C('DB_NAME',$system);
     //更新支付宝详细表
 	$ordid=$parameter['out_trade_no'];
     $data['payment_trade_no']=$parameter['trade_no'];
@@ -42,6 +45,8 @@
 	
  } 
 function alipayFaild($ordernum){
+	$system=session("system");    //支付的产品类型，选择对应的数据库
+	C('DB_NAME',$system);
 	//支付宝支付失败，删除数据库对应订单号
 	$contact=M("contact");
 	$where["ordernum"]=$ordernum;

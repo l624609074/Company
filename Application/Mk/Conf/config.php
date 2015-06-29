@@ -14,7 +14,5 @@ return array(
 	'URL_ROUTER_ON'   => true,
 	'URL_MODEL'=>2,
 	'SHO_PAGE_TRACE' =>false, 
-	'MODULE_ALLOW_LIST'     =>  array('Home','Ejhp','Ej99','Admin99',"Appmaka","Mk","Appejiao"), // ?4
-	'DEFAULT_MODULE'        =>  'Ejhp', // ?4
 	
 );

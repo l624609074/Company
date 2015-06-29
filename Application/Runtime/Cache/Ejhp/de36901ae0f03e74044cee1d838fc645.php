@@ -525,6 +525,8 @@
             <td><input type="text" value="" name="phone" class="text">
             <input type="hidden" value="PC" name="client" class="text">
             <input type="hidden" value="99官网正品培元阿胶" name="subject" class="text">
+            <input type="hidden" value="ejiao" name="system" class="text">
+            <input type="hidden" value="ejhp" name="runUrl" class="text">
           </td></tr>
           <tr>
             <td align="center">收货地址</td>
@@ -667,7 +669,13 @@ var LiveAutoInvite2=' 网站商务通 主要功能：<br>1、主动邀请<br>2�
 <script>
 $(function(){
 		$("input[name=payment]").on("change",function(){
-				$("form[name=form3]").attr("action","/ejhp/Pay/doalipay");
+				var payType=$(this).val();
+				if(payType=="货到付款"){
+					$("form[name=form3]").attr("action","/ejhp/SubOrder/Submit");
+				}else{
+					$("form[name=form3]").attr("action","/ejhp/Pay/doalipay");
+				}
+			
 		
 		});
 

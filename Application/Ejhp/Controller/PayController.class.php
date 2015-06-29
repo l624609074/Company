@@ -3,6 +3,7 @@ namespace Ejhp\Controller;
 use Think\Controller;
 class PayController extends Controller{
        //在类初始化方法中，引入相关类库    
+	 
        public function _initialize() {
         vendor('Alipay.Corefunction');
         vendor('Alipay.Md5function');
@@ -15,8 +16,18 @@ class PayController extends Controller{
           然后进行相关处理
         */
     public function doalipay(){
-		
-		
+		$system=I("post.system");
+		session("system",$system);
+		$runUrl=I("post.runUrl");
+		session("runUrl",$runUrl);
+		//获取 自定义的 验证规则
+				$verify=D("Verify"); 
+
+				if(!$verify->create()){
+				$this->error($verify->getError());	
+			
+				}  
+				
 		// 支付宝支付
 		  //1.联系人
 		  //2.本地的订单表
@@ -66,26 +77,14 @@ class PayController extends Controller{
 										$price=I("post.price{$key}");
 										$products=M("products");
 										$productid=$key;
-										echo $productidStr.=$key.",";
+										 $productidStr.=$key.",";
 										$numStr.=$num.",";
 										
 										$whereProduct=array("id"=>$productid);
 										$product=$products->field("price,productname")->where($whereProduct)->find(); 
 										$productname=$product["productname"];
 										$price=$product["price"];
-										$priceStr.=$price.",";
-										if($price!=$product["price"]){
-											//恶意修改价格
-								
-											//插入失败，同时要删除掉  用户的联系信息
-											$where["id"]=$contactId;
-											$contact->where($where)->delete();
-											
-											$this->error("请勿恶意修改相关提交内容，谢谢合作！");
-											//删除已经插入的用户联系信息
-											
-										}
-										
+										$priceStr.=$price.",";	
 										$total=$price*$num;    //算出当前这件 总价	
 										$time=NOW_TIME;
 										$sql="insert into tp_order (payment,productid,num,total,word,ordernum,ordertime,client) values('{$payment}','{$key}','{$num}','{$total}','{$word}','{$ordernum}','{$time}','{$client}')";
@@ -129,7 +128,7 @@ class PayController extends Controller{
 		/****************  测试金额  ************/
 		
 		
-        $total_fee = 0.01;   //付款金额  //必填 通过支付页面的表单进行传递
+        $total_fee =$sum;   //付款金额  //必填 通过支付页面的表单进行传递
 		
 		
 		/************订单描述，即产品名字的全部拼写***********/
@@ -142,8 +141,15 @@ class PayController extends Controller{
         $show_url = "http://baojian.99peiyuan.com/ejhp";  //商品展示地址 通过支付页面的表单进行传递
         $anti_phishing_key = "";//防钓鱼时间戳 //若要使用请调用类文件submit中的query_timestamp函数
         $exter_invoke_ip = get_client_ip(); //客户端的IP地址 
-        /************************************************************/
-    
+        
+		
+		/************************************************************/
+		$currentUrl=$_SERVER["HTTP_HOST"];
+		 $notify_url="http://".$currentUrl."/Pay/notifyurl"; 
+		//这里是页面跳转通知url，提交到项目的Pay控制器的returnurl方法；
+		$return_url="http://".$currentUrl."/Pay/returnurl";
+		
+		
         //构造要请求的参数数组，无需改动
     $parameter = array(
         "service" => "create_direct_pay_by_user",
@@ -242,6 +248,8 @@ class PayController extends Controller{
     function returnurl(){
                 //头部的处理跟上面两个方法一样，这里不罗嗦了！
         $alipay_config=C('alipay_config');
+		$system=session("system");
+		$runUrl=session("runUrl");
         $alipayNotify = new \AlipayNotify($alipay_config);//计算得出通知验证结果
         $verify_result = $alipayNotify->verifyReturn();
         if($verify_result) {
@@ -274,7 +282,7 @@ class PayController extends Controller{
              orderhandle($parameter);  //进行订单处理，并传送从支付宝返回的参数；
     }
 		
-        $this->success("恭喜您支付宝支付成功，订单号为【{$out_trade_no}】,我们将在一个工作日内与您联系！谢谢！","/Index/Index","10");//跳转到配置项中配置的支付成功页面；
+        $this->success("恭喜您支付宝支付成功，订单号为【{$out_trade_no}】,我们将在一个工作日内与您联系！谢谢！","/{$runUrl}",10);//跳转到配置项中配置的支付成功页面；
     
 	
 	
@@ -283,7 +291,7 @@ class PayController extends Controller{
 	}else {
 		
         echo "trade_status=".$_GET['trade_status'];
-        $this->error("抱歉支付宝支付失败！若有疑问请拨打，首页下方的联系电话，谢谢合作！1");//跳转到配置项中配置的支付失败页面；
+        $this->error("抱歉支付宝支付失败！若有疑问请拨打，首页下方的联系电话，谢谢合作！1","{$runUrl}",6);//跳转到配置项中配置的支付失败页面；
     }
  
  }else {
@@ -292,7 +300,7 @@ class PayController extends Controller{
     //验证失败
     //如要调试，请看alipay_notify.php页面的verifyReturn函数
 	alipayFaild($out_trade_no);
-      $this->error("抱歉支付宝支付失败！若有疑问请拨打，首页下方的联系电话，谢谢合作！2");//跳转到配置项中配置的支付失败页面；
+      $this->error("抱歉支付宝支付失败！若有疑问请拨打，首页下方的联系电话，谢谢合作！2","{$runUrl}",6);//跳转到配置项中配置的支付失败页面；
     }
  }
  }
