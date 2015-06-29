@@ -168,6 +168,11 @@ function phpsys_update_code(a){
         </li>
         <li class="last">
           <input type="hidden" value="APP" name="client">
+		   <input type="hidden" value="99官网正品培元阿胶" name="subject" class="text">
+            <input type="hidden" value="ejiao" name="system" class="text">
+            <input type="hidden" value="appejhp" name="runUrl" class="text">
+		  
+		  
           <input type="submit" value="马上订购" class="submit" style="cursor:pointer">
           <input type="reset" value="清空表单" class="reset" style="cursor:pointer">
         </li>
@@ -209,6 +214,21 @@ var LiveAutoInvite0='您好，来自%IP%的朋友';
 var LiveAutoInvite1='来自首页的对话';
 var LiveAutoInvite2=' 网站商务通 主要功能：<br>1、主动邀请<br>2、即时沟通<br>3、查看即时访问动态<br>4、访问轨迹跟踪<br>5、内部对话<br>6、不安装任何插件也实现双向文件传输<br><br><b>如果您有任何问题请接受此邀请以开始即时沟通</b>';
 </script>
+<script>
+$(function(){
+		$("select[name=payment]").on("change",function(){
+				var payType=$(this).val();
+				if(payType=="货到付款"){
+					$("form[name=form1]").attr("action","__MODULE__/SubOrder/Submit");
+				}else{
+					$("form[name=form1]").attr("action","__MODULE__/Pay/doalipay");
+				}
+			
+		
+		});
 
+});
+
+</script>
 </body>
 </html>
